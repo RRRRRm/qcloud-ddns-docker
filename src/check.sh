@@ -19,6 +19,9 @@ for ddns_record in "${ddns_records[@]}"; do
     export HAS_IPV4=1
   elif [[ $record_type == "AAAA" ]]; then
     export HAS_IPV6=1
+  elif [[ $record_type == "HTTPS" ]]; then
+    export HAS_IPV4=1
+    export HAS_IPV6=1
   else
     echo "Unknown record type $record_type!"
     exit 1
