@@ -25,7 +25,7 @@ services:
 
 | Name                      | Example            | Description                                                                        |
 |:------------------------- |:------------------ |:---------------------------------------------------------------------------------- |
-| `DDNS_RECORDS`            | `@:A *:AAAA HTTPS` | The records to modify.<br/>Should be `name@type` pair, and separated with a space. |
+| `DDNS_RECORDS`            | `@:A *:AAAA www:HTTPS` | The records to modify.<br/>Should be `name@type` pair, and separated with a space. |
 | `DOMAIN`                  | `example.com`      | The domain.                                                                        |
 | `TENCENTCLOUD_SECRET_ID`  | `AKID123456`       |                                                                                    |
 | `TENCENTCLOUD_SECRET_KEY` | `secret-key-stuff` |                                                                                    |
