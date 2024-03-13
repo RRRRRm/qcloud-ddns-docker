@@ -14,7 +14,7 @@ fi
 read -ra ddns_records <<< "$DDNS_RECORDS"
 export ddns_records
 for ddns_record in "${ddns_records[@]}"; do
-  record_type=${ddns_record#*:}
+  record_type=${ddns_record##*:}
   if [[ $record_type == "A" ]]; then
     export HAS_IPV4=1
   elif [[ $record_type == "AAAA" ]]; then
