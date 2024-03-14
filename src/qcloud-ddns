@@ -47,6 +47,7 @@ fi
 for ddns_record in "${ddns_records[@]}"; do
   record_name=${ddns_record%%:*}
   record_type=${ddns_record##*:}
+  other_params=''
   if [[ $record_type == "A" ]]; then
     [[ -n $IPV4_SAME ]] && continue
     record_value=$IPV4
@@ -67,16 +68,17 @@ for ddns_record in "${ddns_records[@]}"; do
     fi
     [[ $renew_flag -eq 0 ]] && continue
     record_value=${value_temp//"_"/" "}
-    record_id=$(get-record-id "$record_name" "$record_type")
+    other_params="--MX 1"
   fi
+  record_id=$(get-record-id "$record_name" "$record_type")
   if [[ -z $record_id ]]; then
     echo "Can't find $record_name with type '$record_type', creating a new one..."
     tccli dnspod CreateRecord --Domain "$DOMAIN" --SubDomain "$record_name" \
-      --RecordType "$record_type" --RecordLine 默认 --Value "$record_value"
+      --RecordType "$record_type" --RecordLine 默认 --Value "$record_value" $other_params
   else
     tccli dnspod ModifyRecord --Domain "$DOMAIN" --SubDomain "$record_name" \
       --RecordType "$record_type" --RecordLine 默认 --RecordId "$record_id" \
-      --Value "$record_value"
+      --Value "$record_value" $other_params
   fi
   echo "Updated record $record_name ($record_type) with $record_value"
 done
